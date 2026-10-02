@@ -8,13 +8,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "nodemon server"
-  },
-  "devDependencies": {
-    "nodemon": "^3.1.14"
+    "server": "node --watch --env-file=.env server"
   },
   "dependencies": {
-    "dotenv": "^18.0.4",
     "express": "^5.2.1",
     "mysql2": "^3.24.4"
   }
