@@ -37,7 +37,7 @@ async function createAccount(){
 
     try{
       console.log(typeof(userData));
-      const response = await fetch("http://localhost:3000/signup", {
+      const response = await fetch("http://localhost:3000/auth/signup", {
         method: 'POST',
         headers : {
           'content-type' :'application/json'
