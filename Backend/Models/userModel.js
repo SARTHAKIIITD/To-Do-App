@@ -46,8 +46,25 @@ const todoList = (id, callback) => {
     }
   );
 };
+
+const addTodo = (id,todoItem,callback) => {
+  const sql = `
+  INSERT INTO todos (id, todo_item)
+  VALUES (?,?)
+  `;
+
+  db.query(
+    sql,
+    [id, todoItem],
+    (err, result) =>{
+      callback(err, result);
+    }
+  );
+};
+
 module.exports = {
   createUser,
   loginUser,
   todoList,
+  addTodo,
 };

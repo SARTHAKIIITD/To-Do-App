@@ -15,6 +15,6 @@ app.use(express.static(path.join(__dirname, frontendPath, "Frontend")));
 app.use("/", pageRoutes);
 app.use("/auth", authRoutes);
 app.use("/login/", todoRoutes);
-app.use("/dashboard", pageRoutes);
+app.use("/todo", todoRoutes);
 
 module.exports = app;

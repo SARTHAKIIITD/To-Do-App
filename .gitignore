@@ -1,2 +1,4 @@
-.env
+Backend/.env
+.vscode
+.kilo
 Backend/node_modules

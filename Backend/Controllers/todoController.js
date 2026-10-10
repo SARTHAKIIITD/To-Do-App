@@ -21,6 +21,29 @@ const getTodo = (req, res) =>{
   );
 };
 
+const addTodo = (req, res) => {
+  const id = req.params.id;
+  const {todo} = req.body;
+  console.log(`id ${id} add new task`);
+  userModel.addTodo(
+    id,
+    todo,
+    (err, result) => {
+      if(err){
+        console.error("Database error: ", err);
+        return res.status(500).json({
+          message:"Failed to access data"
+        });
+      }
+
+      return res.json({
+        message : "data added succefully"
+      });
+    }
+  );
+};
+
 module.exports = {
   getTodo,
+  addTodo
 };
