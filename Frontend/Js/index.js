@@ -4,37 +4,48 @@ createAccountBtn.addEventListener("click", () => {
 });
 
 document.querySelector('#login-btn').addEventListener('click', async() =>{
-  const userData = {
-    username : document.querySelector('#username').value,
-    password : document.querySelector('#password').value,
-  };
-
   try{
-    const response = await fetch("http://localhost:3000/auth/login", {
-      method: 'POST',
-      headers : {
-        'content-type' : 'application/json'
-      },
-      body : JSON.stringify(userData)
-    });
-    if(!response.ok){
-      throw new Error("Unable to login");
-    }
-    const data = await response.json(); // id
-    console.log(data.message);
+    const username = document.querySelector('#username');
+    const password = document.querySelector('#password');
 
-    const response2 = await fetch(`/login/${data.message}`, {
+    const response = await fetch('auth/login',{
+      method: 'POST',
+      headers:{
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: username.value,
+        password: password.value
+      })
     });
-      if(!response2.ok){
-        throw new Error("Unable to retrive user data");
-      }
-      const data2 = await response2.json();
-      console.log(data2.message);
-      localStorage.setItem("todo", JSON.stringify(data2.message));
-      localStorage.setItem("id", JSON.stringify(data.message));
-      
-      window.location.href = "/dashboard";
-  }catch(error){
-    console.error(error);
+
+    const data = await response.json();
+    if(!response.ok){
+      throw new Error('Unable to login');
+    }
+    
+    if(data.message === 'true') {
+      localStorage.setItem('user', JSON.stringify(data.user));
+      window.location.href = '/dashboard';
+    }
+    else{
+      alert(data.message);
+    }
+    username.value = ``;
+    password.value = ``;
   }
+  catch(err){
+    console.error(`Something went wrong${err}`);
+  }
+
 });
+
+
+
+
+
+// if(!response.ok) throws an error before you can handle the server's message properly. Also, 'Unable to login' || data.message always evaluates to 'Unable to login'.
+
+// data is declared inside try, so you cannot access it inside catch.
+
+// data.message.length >= 2 is unnecessary if your backend sends 'true' for successful login.

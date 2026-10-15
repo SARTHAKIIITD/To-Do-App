@@ -22,3 +22,15 @@
   flex-direction: column;
   align-items: center;
 }
+
+.list-display{
+  flex-direction:column;
+}
+
+.clear-all-btn-container{
+  display: none;
+}
+
+.active-clear-all-btn-container{
+  display : flex;
+}
