@@ -27,6 +27,11 @@
   flex-direction:column;
 }
 
+.item-container{
+  display: flex;
+  justify-content: space-between;
+}
+
 .clear-all-btn-container{
   display: none;
 }
