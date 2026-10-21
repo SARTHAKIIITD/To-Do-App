@@ -30,7 +30,24 @@ const checkUser = (username, password, callback) => {
     }
   );
 };
+
+const todoList = (id, callback) => {
+  const sql = `
+  SELECT todo_item
+  FROM todos
+  WHERE id = ?`;
+
+  db.query(
+    sql,
+    [id],
+    (err, result) =>{
+      callback(err, result);
+    }
+  );
+};
+
 module.exports = {
   createUser,
   checkUser,
+  todoList,
 };
