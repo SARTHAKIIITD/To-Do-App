@@ -24,6 +24,23 @@ const todoList = (req, res) => {
   );
 };
 
+const deleteTodos = (req, res) => {
+  console.log(`${req.params.id} requests to delete all items`);
+  userModel.removeTodos(
+    req.params.id,
+    (err, result) => {
+      if(err){
+        console.log(`Error while deleting all todos of ${req.params.id}`);
+        return res.status(400).json({
+          message : 'Something went wrong',
+        });
+      }
+      console.log(`${req.params.id} todos are deleted successfully`);
+    }
+  );
+};
+
 module.exports = {
   todoList,
+  deleteTodos,
 };

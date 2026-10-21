@@ -46,8 +46,23 @@ const todoList = (id, callback) => {
   );
 };
 
+const removeTodos = (id, callback) => {
+  const sql = `
+  DELETE FROM todos
+  WHERE id = ?
+  `;
+
+  db.query(
+    sql,
+    [id],
+    (err, result) => {
+      callback(err,result);
+    }
+  );
+};
 module.exports = {
   createUser,
   checkUser,
   todoList,
+  removeTodos,
 };

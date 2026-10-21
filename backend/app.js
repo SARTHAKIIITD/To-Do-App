@@ -8,10 +8,10 @@ app.use(express.static(path.join(__dirname, "../Frontend")));
 
 const pageRoutes = require('./routes/pageRoutes');
 const authRoutes = require('./routes/authRoutes');
-const userRoutes = require('./routes/todoRoutes');
+const todoRoutes = require('./routes/todoRoutes');
 
 app.use('/', pageRoutes);
 app.use('/auth', authRoutes);
-app.use('/get', userRoutes);
+app.use('/todos', todoRoutes);
 
 module.exports = app;
