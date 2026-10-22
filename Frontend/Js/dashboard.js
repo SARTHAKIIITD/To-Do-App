@@ -5,15 +5,19 @@ ${user.name}
 
 let todoList =[];
 
+const clearAllbtnContainer = document.querySelector('.clear-all-btn-container');
+const clearAllbtn = document.querySelector('#clear-all-btn');
+
 async function displayTodos(){
-  document.querySelector('.list-display').innerHTML +=``;
+  document.querySelector('.list-display').innerHTML =``;
   try{
-    const response = await fetch(`todos/get/${user.id}`);
+    const response = await fetch(`/todo/get/${user.id}`);
     const data = await response.json();
     if(!response.ok){
       throw new Error('Unable to get your todo list');
     }
     todoList = data.todoList;
+    console.log(todoList);
   }
   catch(err){
     console.error(err);
@@ -24,37 +28,71 @@ async function displayTodos(){
       document.querySelector('.list-display').innerHTML +=`
       <div class= 'item-container'>
       <span>${todoList[i]}</span>
-      <button>delete</button> 
+      <button data-index = "${i}">delete</button> 
       </div>
       `;
     }
+    clearAllbtnContainer.classList.add('active-clear-all-btn-container');
+
+    document.querySelectorAll('.item-container button').forEach(button => {
+      button.addEventListener('click', () => {
+        const index = Number(button.dataset.index);
+        console.log(index);
+      });
+    });
   }
-  const clearAllbtn = document.querySelector('.clear-all-btn-container')
-  clearAllbtn.classList.add('active-clear-all-btn-container');
-  clearAllbtn.addEventListener('click', async() => {
+}
+
+clearAllbtn.addEventListener('click', async() => {
     try{
-      const response = await fetch(`todos/delete/all/${user.id}`,{
+      console.log('clicked');
+      const response = await fetch(`/todo/delete/all/${user.id}`,{
         method: 'DELETE'
       });
 
+      console.log('step 2 completed');
       if(!response.ok){
         throw new Error('Failed to delete all todos');
       }
+    
+      if (clearAllbtnContainer.classList.contains('active-clear-all-btn-container')) {
+        clearAllbtnContainer.classList.remove('active-clear-all-btn-container');
+      }
+      await displayTodos();
     }
     catch(err){
       console.log(err);
     }
-    displayTodos();
   });
-}
-
-displayTodos();
 
 document.querySelector('#add-btn').addEventListener('click', async() => {
-  const response = await fetch('/todos/post/');
+  const taskInput = document.querySelector('#task-input');
+  const itemName = taskInput.value;
+
+  try{
+    const response = await fetch(`/todo/post/${user.id}`,{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        itemName,
+      })
+    });
+    const data = await response.json();
+    if(!response.ok){
+      throw new Error("Unable to add new todo\n", data.message);
+    }
+    await displayTodos();
+  }catch(err){
+    console.error(err);
+  }
+  taskInput.value = ``;
 });
 
 document.querySelector('#logout-btn').addEventListener('click', () => {
   localStorage.clear();
   window.location.href = '/';
 });
+
+displayTodos();

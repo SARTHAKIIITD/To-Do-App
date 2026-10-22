@@ -12,6 +12,6 @@ const todoRoutes = require('./routes/todoRoutes');
 
 app.use('/', pageRoutes);
 app.use('/auth', authRoutes);
-app.use('/todos', todoRoutes);
+app.use('/todo', todoRoutes);
 
 module.exports = app;

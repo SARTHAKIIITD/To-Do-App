@@ -2,10 +2,6 @@ const userModel = require('../models/userModel');
 
 const todoList = (req, res) => {
   console.log(`${req.params.id} request for todo list`);
-  // res.status(201).json({
-  //   todoList: "Your request is processed",
-  // });
-
   userModel.todoList(
     req.params.id,
     (err, result) => {
@@ -15,7 +11,6 @@ const todoList = (req, res) => {
           message: 'Something went wrong',
         });
       }
-      
       const todos =  result.map(item => item.todo_item);
       res.json({
         todoList: todos,
@@ -36,11 +31,40 @@ const deleteTodos = (req, res) => {
         });
       }
       console.log(`${req.params.id} todos are deleted successfully`);
+      res.status(201).json({
+        message : 'every thing is fine',
+      });
     }
   );
 };
 
+const addTodo = (req, res) => {
+  console.log(`${req.params.id} want to add new item`);
+  const {itemName} = req.body;
+  if(!itemName){
+    return res.status(400).json({
+      message : "Please enter todo",
+    });
+  }
+  userModel.insertTodo(
+    req.params.id,
+    itemName,
+    (err, result) => {
+      if(err){
+        console.log(`error occur while inserting new todo\n ${err}`);
+        return res.status(400).json({
+          message : 'something went wrong',
+        });
+      }
+      res.status(201).json({
+        message : 'Insertion was successful',
+      });
+    }
+  );
+}
+
 module.exports = {
   todoList,
   deleteTodos,
+  addTodo,
 };

@@ -60,9 +60,26 @@ const removeTodos = (id, callback) => {
     }
   );
 };
+
+const insertTodo = (id, newItem, callback) => {
+  const sql = `
+  INSERT INTO todos (id, todo_item)
+  VALUES (?,?)
+  `;
+
+  db.query(
+    sql,
+    [id, newItem],
+    (err, result) => {
+      callback(err, result);
+    }
+  );
+};
+
 module.exports = {
   createUser,
   checkUser,
   todoList,
   removeTodos,
+  insertTodo,
 };
