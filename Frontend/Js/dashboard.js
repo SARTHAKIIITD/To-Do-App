@@ -35,11 +35,28 @@ async function displayTodos(){
     clearAllbtnContainer.classList.add('active-clear-all-btn-container');
 
     document.querySelectorAll('.item-container button').forEach(button => {
-      button.addEventListener('click', () => {
+      button.addEventListener('click', async() => {
         const index = Number(button.dataset.index);
-        console.log(index);
+        const remvItem = JSON.stringify(todoList[index]);
+        try{
+          const response = await fetch(`todo/delete/${user.id}/${encodeURIComponent(remvItem)}`, {
+            method: 'DELETE',
+          });
+          const data = await response.json();
+          if(!response.ok){
+            throw new Error('Failed to delete all todos');
+          }
+          await displayTodos();
+        } catch(err){
+          console.error(err);
+        }
       });
     });
+  }
+  else {
+    if (clearAllbtnContainer.classList.contains('active-clear-all-btn-container')) {
+        clearAllbtnContainer.classList.remove('active-clear-all-btn-container');
+      }
   }
 }
 

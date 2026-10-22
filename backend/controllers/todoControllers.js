@@ -63,8 +63,29 @@ const addTodo = (req, res) => {
   );
 }
 
+const remvItem = (req, res) => {
+  console.log(req.params.remvitem);
+  userModel.removeItem(
+    req.params.id,
+    req.params.remvitem,
+    (err, result) => {
+      if(err){
+        console.log(`Error while removing item for id:${req.params.id}\n${err}`);
+        return res.status(400).json({
+          message : 'something went wrong'
+        });
+      }
+      console.log(result);
+      return res.status(201).json({
+        message: `Item was removed`
+      });
+    }
+  );
+};
+
 module.exports = {
   todoList,
   deleteTodos,
   addTodo,
+  remvItem,
 };

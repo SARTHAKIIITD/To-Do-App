@@ -76,10 +76,30 @@ const insertTodo = (id, newItem, callback) => {
   );
 };
 
+const removeItem = (id, item, callback) => {
+  const sql = `
+  DELETE FROM todos
+  WHERE 
+  todo_item = ? AND
+  id = ?
+  LIMIT 1
+  `;
+  const itemremv = item.replace(/"/g, "");
+  db.query(
+    sql,
+    [itemremv, id],
+    (err, result) => {
+      callback(err, result);
+      console.log('item:',itemremv);
+    }
+  );
+}
+
 module.exports = {
   createUser,
   checkUser,
   todoList,
   removeTodos,
   insertTodo,
+  removeItem,
 };
