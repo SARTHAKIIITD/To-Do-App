@@ -17,10 +17,24 @@
   background-color: red;
 }
 
+.btn-container{
+  flex-direction: column;
+}
+
 .inner-container{
   flex-grow: 1;
+  
+}
+
+.page{
+  display: none;
+  width: 100%;
   flex-direction: column;
   align-items: center;
+}
+
+.active-page{
+  display: flex;
 }
 
 .list-display{
