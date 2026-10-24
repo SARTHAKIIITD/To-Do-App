@@ -5,6 +5,7 @@ document.querySelectorAll('.btn-container button').forEach(button => {
     });
   if(button.id === 'dash-btn') document.querySelector('#dashboard').classList.add('active-page');
   else if(button.id === 'todo-btn') document.querySelector('#todo-list').classList.add('active-page');
+  else if(button.id === 'kanban-btn') document.querySelector('#kanban-board').classList.add('active-page');
   });
 });
 

@@ -5,35 +5,65 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard</title>
   <link rel="stylesheet" href="../CSS/dashboard.css">
+  <link rel="stylesheet" href="../CSS/kanban.css">
 </head>
 <body>
   <div class="flex outer-container">
+
     <div class="flex side-bar">
+      <!-- side buttons -->
       <div class="flex btn-container">
         <button id="dash-btn">Dashboard</button>
         <button id="todo-btn">todos</button>
+        <button id="kanban-btn">kanban</button>
       </div>
       <button id="logout-btn">Logout</button>
     </div>
-    <div class="flex inner-container">
 
+    <div class="flex inner-container">
+      <!-- DASHBOARD -->
       <section id="dashboard" class="page active-page">
         <h1>Welcome <span id="user-name"></span></h1>
       </section>
-
+      
+      <!-- TODO-LIST -->
       <section id="todo-list" class="page">
         <div class="add-item-container">
           <input id="task-input" type="text" placeholder="Enter new task">
           <button id="add-btn">add</button>
         </div>
-        
         <div class="flex list-display"></div>
         <div class="clear-all-btn-container">
           <button id="clear-all-btn">clear all</button>
         </div>
       </div>
     </section>
+
+    <!-- kanban Board -->
+    <section id="kanban-board" class="page">
+      kanban borad
+      <div class="kanban-inner-container">
+        <!-- todo -->
+        <div class="status" id="todo">
+          <h2>todo</h2>
+          <form class="task-input-container">
+            <input type="text" class="kan-task-input">
+            <button class="kan-addbtn">add</button>
+          </form>
+          </div>
+          <!--in progress -->
+        <div class="status" id="in-progess">
+          <h2>in-progress</h2>
+        </div>
+        <!-- done -->
+        <div class="status" id="done">
+          <h2>done</h2>
+        </div>
+      </div>
+    </section>
+
   </div>
   <script src="../Js/dashboard.js"></script>
+  <script src="../Js/kanban.js"></script>
 </body>
 </html>

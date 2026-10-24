@@ -1,0 +1,23 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#kanban-board{
+  background-color: green;
+}
+
+.kanban-inner-container{
+  display: flex;
+  width: 100%;
+
+}
+
+.status{
+  display: flex;
+  flex-direction: column;
+  width: 33.3%;
+  align-items: center;
+  background-color: yellow;
+}
